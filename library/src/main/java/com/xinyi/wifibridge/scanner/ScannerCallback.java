@@ -1,4 +1,4 @@
-package com.xinyi.wifikit.scanner;
+package com.xinyi.wifibridge.scanner;
 
 import android.net.wifi.ScanResult;
 

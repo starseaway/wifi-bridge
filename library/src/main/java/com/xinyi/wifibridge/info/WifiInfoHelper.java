@@ -1,4 +1,4 @@
-package com.xinyi.wifikit.info;
+package com.xinyi.wifibridge.info;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -12,7 +12,7 @@ import android.text.format.Formatter;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RequiresPermission;
 
-import com.xinyi.wifikit.WiFiKit;
+import com.xinyi.wifibridge.WiFiBridge;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class WifiInfoHelper {
      * @return SSID，未连接返回 null
      */
     public static String getCurrentSsid() {
-        WifiInfo info = WiFiKit.getWifiManager().getConnectionInfo();
+        WifiInfo info = WiFiBridge.getWifiManager().getConnectionInfo();
         if (info != null && info.getSupplicantState() == SupplicantState.COMPLETED) {
             return info.getSSID().replace("\"", "");
         }
@@ -47,7 +47,7 @@ public class WifiInfoHelper {
      * @return true 表示是隐藏 Wi-Fi，false 表示公开 Wi-Fi 或未连接
      */
     public static boolean isHiddenSSID() {
-        WifiInfo info = WiFiKit.getWifiManager().getConnectionInfo();
+        WifiInfo info = WiFiBridge.getWifiManager().getConnectionInfo();
         if (info != null) {
             return info.getHiddenSSID();
         }
@@ -70,7 +70,7 @@ public class WifiInfoHelper {
      */
     @RequiresPermission(allOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_WIFI_STATE})
     public static boolean isSsidVisible(String targetSsid) {
-        List<ScanResult> results = WiFiKit.getWifiManager().getScanResults();
+        List<ScanResult> results = WiFiBridge.getWifiManager().getScanResults();
         if (results != null) {
             for (ScanResult result : results) {
                 if (targetSsid.equals(result.SSID)) {
@@ -87,7 +87,7 @@ public class WifiInfoHelper {
      * @return 网络 ID，失败时返回 -1
      */
     public static int getNetworkId() {
-        WifiInfo info = WiFiKit.getWifiManager().getConnectionInfo();
+        WifiInfo info = WiFiBridge.getWifiManager().getConnectionInfo();
         if (info != null) {
             return info.getNetworkId();
         }
@@ -100,7 +100,7 @@ public class WifiInfoHelper {
      * @return BSSID，未连接返回 null
      */
     public static String getCurrentBssid() {
-        WifiInfo info = WiFiKit.getWifiManager().getConnectionInfo();
+        WifiInfo info = WiFiBridge.getWifiManager().getConnectionInfo();
         if (info != null) {
             return info.getBSSID();
         }
@@ -113,7 +113,7 @@ public class WifiInfoHelper {
      * @return 信号强度（单位 dBm），未连接返回 Integer.MIN_VALUE
      */
     public static int getCurrentSignalLevel() {
-        WifiInfo info = WiFiKit.getWifiManager().getConnectionInfo();
+        WifiInfo info = WiFiBridge.getWifiManager().getConnectionInfo();
         if (info != null) {
             return info.getRssi();
         }
@@ -126,7 +126,7 @@ public class WifiInfoHelper {
      * @return IP 地址，未连接返回 null
      */
     public static String getCurrentIpAddress() {
-        WifiInfo info = WiFiKit.getWifiManager().getConnectionInfo();
+        WifiInfo info = WiFiBridge.getWifiManager().getConnectionInfo();
         if (info != null) {
             int ip = info.getIpAddress();
             return Formatter.formatIpAddress(ip);
@@ -141,7 +141,7 @@ public class WifiInfoHelper {
      */
     @SuppressLint("HardwareIds")
     public static String getMacAddress() {
-        WifiInfo info = WiFiKit.getWifiManager().getConnectionInfo();
+        WifiInfo info = WiFiBridge.getWifiManager().getConnectionInfo();
         if (info != null) {
             return info.getMacAddress();
         }
@@ -155,7 +155,7 @@ public class WifiInfoHelper {
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static int getFrequency() {
-        WifiInfo info = WiFiKit.getWifiManager().getConnectionInfo();
+        WifiInfo info = WiFiBridge.getWifiManager().getConnectionInfo();
         if (info != null) {
             return info.getFrequency();
         }
@@ -171,7 +171,7 @@ public class WifiInfoHelper {
      */
     @RequiresPermission(allOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_WIFI_STATE})
     public static int getFrequencyLegacy() {
-        WifiInfo info = WiFiKit.getWifiManager().getConnectionInfo();
+        WifiInfo info = WiFiBridge.getWifiManager().getConnectionInfo();
         if (info == null) {
             return -1;
         }
@@ -182,7 +182,7 @@ public class WifiInfoHelper {
         }
 
         // 获取当前的扫描结果列表
-        List<ScanResult> scanResults = WiFiKit.getWifiManager().getScanResults();
+        List<ScanResult> scanResults = WiFiBridge.getWifiManager().getScanResults();
         if (scanResults == null || scanResults.isEmpty()) {
             return -1;
         }
@@ -232,7 +232,7 @@ public class WifiInfoHelper {
      * @return 速度（单位 Mbps），未连接返回 -1
      */
     public static int getLinkSpeed() {
-        WifiInfo info = WiFiKit.getWifiManager().getConnectionInfo();
+        WifiInfo info = WiFiBridge.getWifiManager().getConnectionInfo();
         if (info != null) {
             return info.getLinkSpeed();
         }
@@ -245,7 +245,7 @@ public class WifiInfoHelper {
      * @return 如果设备已连接到 Wi-Fi 网络，则返回 true；否则返回 false。
      */
     public static boolean isWifiConnected() {
-        WifiInfo info = WiFiKit.getWifiManager().getConnectionInfo();
+        WifiInfo info = WiFiBridge.getWifiManager().getConnectionInfo();
         // 如果 wifiInfo 不为空且当前已连接的网络 ID 非 -1，表示已连接 Wi-Fi
         return info != null && info.getNetworkId() != -1;
     }
@@ -256,7 +256,7 @@ public class WifiInfoHelper {
      * @return 网关 IP，未连接返回 null
      */
     public static String getGatewayAddress() {
-        DhcpInfo dhcpInfo = WiFiKit.getWifiManager().getDhcpInfo();
+        DhcpInfo dhcpInfo = WiFiBridge.getWifiManager().getDhcpInfo();
         if (dhcpInfo != null) {
             return Formatter.formatIpAddress(dhcpInfo.gateway);
         }
@@ -269,7 +269,7 @@ public class WifiInfoHelper {
      * @return DNS 地址字符串，失败时返回 null
      */
     public static String getDnsAddress() {
-        DhcpInfo dhcpInfo = WiFiKit.getWifiManager().getDhcpInfo();
+        DhcpInfo dhcpInfo = WiFiBridge.getWifiManager().getDhcpInfo();
         if (dhcpInfo != null) {
             return Formatter.formatIpAddress(dhcpInfo.dns1);
         }
@@ -282,7 +282,7 @@ public class WifiInfoHelper {
      * @return 子网掩码字符串，失败时返回 null
      */
     public static String getSubnetMask() {
-        DhcpInfo dhcpInfo = WiFiKit.getWifiManager().getDhcpInfo();
+        DhcpInfo dhcpInfo = WiFiBridge.getWifiManager().getDhcpInfo();
         if (dhcpInfo != null) {
             return Formatter.formatIpAddress(dhcpInfo.netmask);
         }
@@ -295,7 +295,7 @@ public class WifiInfoHelper {
      * @return DHCP 地址，失败返回 null
      */
     public static String getDhcpServerAddress() {
-        DhcpInfo dhcpInfo = WiFiKit.getWifiManager().getDhcpInfo();
+        DhcpInfo dhcpInfo = WiFiBridge.getWifiManager().getDhcpInfo();
         if (dhcpInfo != null) {
             return Formatter.formatIpAddress(dhcpInfo.serverAddress);
         }
@@ -308,7 +308,7 @@ public class WifiInfoHelper {
      * @return DHCP 信息字符串
      */
     public static String getDhcpInfoSummary() {
-        DhcpInfo info = WiFiKit.getWifiManager().getDhcpInfo();
+        DhcpInfo info = WiFiBridge.getWifiManager().getDhcpInfo();
         if (info == null) {
             return "";
         }

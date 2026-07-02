@@ -1,4 +1,4 @@
-package com.xinyi.wifikit.connect;
+package com.xinyi.wifibridge.connect;
 
 /**
  * Wi-Fi 连接回调接口

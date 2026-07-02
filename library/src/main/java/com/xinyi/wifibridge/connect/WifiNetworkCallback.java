@@ -1,4 +1,4 @@
-package com.xinyi.wifikit.connect;
+package com.xinyi.wifibridge.connect;
 
 import android.net.ConnectivityManager;
 import android.net.Network;
@@ -9,7 +9,7 @@ import android.os.Looper;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
-import com.xinyi.wifikit.WiFiKit;
+import com.xinyi.wifibridge.WiFiBridge;
 
 /**
  * Android 10+ 的网络回调实现
@@ -37,7 +37,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onAvailable(@NonNull Network network) {
         // 绑定网络到当前进程的默认网络，此后该进程发出的所有网络请求（包括 HttpURLConnection、OkHttp、Socket 等）都会走绑定的这张网络。
-        WiFiKit.getConnectivityManager().bindProcessToNetwork(network);
+        WiFiBridge.getConnectivityManager().bindProcessToNetwork(network);
 
         // 连接成功
         mHandler.post(mCallback::onSuccess);

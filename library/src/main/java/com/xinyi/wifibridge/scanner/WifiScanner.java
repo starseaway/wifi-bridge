@@ -1,4 +1,4 @@
-package com.xinyi.wifikit.scanner;
+package com.xinyi.wifibridge.scanner;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
@@ -13,7 +13,7 @@ import androidx.annotation.RequiresPermission;
 import androidx.annotation.WorkerThread;
 
 import com.xinyi.device.DeviceContext;
-import com.xinyi.wifikit.WiFiKit;
+import com.xinyi.wifibridge.WiFiBridge;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -103,13 +103,13 @@ public class WifiScanner {
         addTimeout(mTimeoutRunnable);
 
         // 启动扫描，如果失败，取消超时任务，注销广播，回调失败
-        boolean success = WiFiKit.getWifiManager().startScan();
+        boolean success = WiFiBridge.getWifiManager().startScan();
         if (!success) {
             cancelTimeout();
             try {
                 DeviceContext.getApplication().unregisterReceiver(receiver);
             } catch (Exception exception) {
-                exception.printStackTrace();
+                exception.printStackTrace(System.err);
             }
             callback.onFailure("startScan 返回 false");
         }
@@ -263,7 +263,7 @@ public class WifiScanner {
             scanner.cancelTimeout();
 
             // 获取扫描结果
-            List<ScanResult> results = WiFiKit.getWifiManager().getScanResults();
+            List<ScanResult> results = WiFiBridge.getWifiManager().getScanResults();
             // 移除所有被过滤掉的元素
             scanner.filterScanResults(results);
             // 通知回调

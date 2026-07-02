@@ -1,4 +1,4 @@
-package com.xinyi.wifikit.state;
+package com.xinyi.wifibridge.state;
 
 import android.net.wifi.ScanResult;
 import android.text.TextUtils;

@@ -1,4 +1,4 @@
-package com.xinyi.wifikit;
+package com.xinyi.wifibridge;
 
 import android.app.Application;
 import android.content.Context;
@@ -8,14 +8,14 @@ import android.net.wifi.WifiManager;
 import com.xinyi.device.DeviceContext;
 
 /**
- * WiFiKit 核心入口类
+ * WiFiBridge 核心入口类
  *
- * <p> 用于初始化 WiFiKit，并提供全局系统服务访问能力 </p>
+ * <p> 用于初始化 WiFiBridge，并提供全局系统服务访问能力 </p>
  *
  * @author 新一
  * @date 2025/5/29 14:25
  */
-public class WiFiKit {
+public class WiFiBridge {
 
     /**
      * 系统的 Wi-Fi 管理器

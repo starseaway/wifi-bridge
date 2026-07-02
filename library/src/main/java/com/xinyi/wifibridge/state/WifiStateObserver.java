@@ -1,4 +1,4 @@
-package com.xinyi.wifikit.state;
+package com.xinyi.wifibridge.state;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -82,7 +82,7 @@ public class WifiStateObserver {
         try {
             DeviceContext.getApplication().unregisterReceiver(mReceiver);
         } catch (IllegalArgumentException exception) {
-            exception.printStackTrace();
+            exception.printStackTrace(System.err);
         }
         mStateCallback = null;
     }

@@ -1,8 +1,8 @@
-package com.xinyi.wifikit.state;
+package com.xinyi.wifibridge.state;
 
 import android.net.wifi.ScanResult;
 
-import com.xinyi.wifikit.R;
+import com.xinyi.wifibridge.R;
 
 /**
  * Wi-Fi 信号强度获取工具

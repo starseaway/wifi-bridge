@@ -59,6 +59,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "wifikit"
+rootProject.name = "wifi-bridge"
 include ':app'
 include ':library'

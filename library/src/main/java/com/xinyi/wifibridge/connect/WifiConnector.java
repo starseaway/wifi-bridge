@@ -1,4 +1,4 @@
-package com.xinyi.wifikit.connect;
+package com.xinyi.wifibridge.connect;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RequiresPermission;
 
-import com.xinyi.wifikit.WiFiKit;
+import com.xinyi.wifibridge.WiFiBridge;
 
 import java.util.List;
 
@@ -85,7 +85,7 @@ public class WifiConnector {
 
         // 发起网络连接请求（异步）
         mNetworkCallback = new WifiNetworkCallback(callback);
-        WiFiKit.getConnectivityManager().requestNetwork(request, mNetworkCallback);
+        WiFiBridge.getConnectivityManager().requestNetwork(request, mNetworkCallback);
     }
 
     /**
@@ -94,11 +94,11 @@ public class WifiConnector {
     @RequiresPermission(allOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_WIFI_STATE})
     public void connectLegacy(@NonNull String ssid, @NonNull String password, @NonNull ConnectCallback callback) {
         // 清除已存在的相同 SSID 配置，避免冲突
-        List<WifiConfiguration> configs = WiFiKit.getWifiManager().getConfiguredNetworks();
+        List<WifiConfiguration> configs = WiFiBridge.getWifiManager().getConfiguredNetworks();
         if (configs != null) {
             for (WifiConfiguration config : configs) {
                 if (config.SSID != null && config.SSID.equals("\"" + ssid + "\"")) {
-                    WiFiKit.getWifiManager().removeNetwork(config.networkId);
+                    WiFiBridge.getWifiManager().removeNetwork(config.networkId);
                 }
             }
         }
@@ -110,18 +110,18 @@ public class WifiConnector {
         configuration.status = WifiConfiguration.Status.ENABLED;
         configuration.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK);
 
-        int netId = WiFiKit.getWifiManager().addNetwork(configuration);
+        int netId = WiFiBridge.getWifiManager().addNetwork(configuration);
         if (netId == -1) {
             postFailure(callback, "添加 Wi-Fi 配置失败");
             return;
         }
 
         // 断开当前连接
-        boolean disconnected = WiFiKit.getWifiManager().disconnect();
+        boolean disconnected = WiFiBridge.getWifiManager().disconnect();
         // 启用新的配置
-        boolean enabled = WiFiKit.getWifiManager().enableNetwork(netId, true);
+        boolean enabled = WiFiBridge.getWifiManager().enableNetwork(netId, true);
         // 重新连接
-        boolean reconnected = WiFiKit.getWifiManager().reconnect();
+        boolean reconnected = WiFiBridge.getWifiManager().reconnect();
 
         if (disconnected && enabled && reconnected) {
             postSuccess(callback);
@@ -165,7 +165,7 @@ public class WifiConnector {
     private void disconnectAndroid10Plus() {
         if (mNetworkCallback != null) {
             try {
-                WiFiKit.getConnectivityManager().unregisterNetworkCallback(mNetworkCallback);
+                WiFiBridge.getConnectivityManager().unregisterNetworkCallback(mNetworkCallback);
             } catch (Exception exception) {
                 // 可能已经注销或异常，不用特别处理
                 exception.printStackTrace(System.err);
@@ -179,7 +179,7 @@ public class WifiConnector {
      */
     @RequiresPermission(Manifest.permission.ACCESS_WIFI_STATE)
     private void disconnectLegacy() {
-        boolean success = WiFiKit.getWifiManager().disconnect();
+        boolean success = WiFiBridge.getWifiManager().disconnect();
         if (!success) {
             Log.e(WifiConnector.class.getSimpleName(), "断开 Wi-Fi 连接失败");
         }

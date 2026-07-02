@@ -1,4 +1,4 @@
-package com.xinyi.wifikit.permission;
+package com.xinyi.wifibridge.permission;
 
 import android.Manifest;
 import android.app.Activity;

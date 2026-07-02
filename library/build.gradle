@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.xinyi.wifikit'
+    namespace 'com.xinyi.wifibridge'
     compileSdk 36
 
     defaultConfig {
@@ -52,5 +52,5 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
 
     // 设备工具包
-    api 'com.github.starseaway:device-toolkit:2.0.0'
+    api 'com.github.starseaway:device-toolkit:2.0.2'
 }

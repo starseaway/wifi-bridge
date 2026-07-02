@@ -1,11 +1,13 @@
-package com.xinyi.wifikit.scanner;
+package com.xinyi.wifibridge.scanner;
 
 import android.net.wifi.ScanResult;
 
 import androidx.annotation.NonNull;
 
 /**
- * 扫描结果过滤器接口，用于按条件过滤 {@link ScanResult}。
+ * 扫描结果过滤器接口
+ *
+ * <p> 用于按条件过滤 {@link ScanResult} </p>
  *
  * @author 新一
  * @date 2025/5/29 10:36
