@@ -60,11 +60,11 @@ public class WifiStateObserver {
     }
 
     /**
-     * 开始监听 Wi-Fi 状态
+     * 注册 Wi-Fi 状态的广播接收器
      *
      * @param callback 回调接口
      */
-    public void start(WifiStateCallback callback) {
+    public void register(WifiStateCallback callback) {
         this.mStateCallback = callback;
         IntentFilter filter = new IntentFilter();
         // Wi-Fi 状态变化
@@ -76,9 +76,9 @@ public class WifiStateObserver {
     }
 
     /**
-     * 停止监听
+     * 注销 Wi-Fi 状态监听
      */
-    public void stop() {
+    public void unregister() {
         try {
             DeviceContext.getApplication().unregisterReceiver(mReceiver);
         } catch (IllegalArgumentException exception) {

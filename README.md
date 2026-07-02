@@ -247,11 +247,11 @@ val wifiIcon = level.toIconResources()
 val type = WifiSecurityAnalyzer.analyze(scanResult)
 ```
 
-### 6. 监听 Wi-Fi 状态变化
+### 6. 注册 Wi-Fi 状态变化监听
 
 ```kotlin
 val observer = WifiStateObserver()
-observer.start(object : WifiStateCallback {
+observer.register(object : WifiStateCallback {
     override fun onWifiStateChanged(state: Int) {
         // Wi-Fi 开关状态变化
     }
@@ -266,15 +266,18 @@ observer.start(object : WifiStateCallback {
 })
 ```
 
-页面销毁时记得停止监听：
+页面销毁时记得注销监听：
 
 ```kotlin
-observer.stop()
+observer.unregister()
 ```
 
 ---
 
 ## 五、版本变更记录
+
+### V2.0.1 (2026-07-02)
+- 🦄 refactor: 调整 Wi-Fi 状态监听方法命名
 
 ### V2.0.0 (2026-07-02)
 - 修改库的名称与包名
